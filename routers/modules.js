@@ -15,15 +15,15 @@ PAd.Routers.Modules = Backbone.Router.extend({
     return this;
   },
   module_view: function(module) {
-    this.view.list({module: module});
+    this.view.render({module: module});
     return this;
   },
   module_create: function(module) {
-    this.view.create({module: module});
+    this.view.render({module: module, create: true});
     return this;
   },
   module_update: function(module, id) {
-    this.view.update({module: module, id: id});
+    this.view.render({module: module, update: true, id: id});
     return this;
   }
 });

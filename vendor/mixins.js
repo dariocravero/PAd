@@ -13,12 +13,12 @@ _.mixin({
    */
   scroll_to: function (el, options) {
     if (typeof options === 'undefined') options = {}; 
-    _.defaults(options, {margin: 20, speed: 500});
+    _.defaults(options, {margin: 20, speed: 1000});
 
     var current_top = $(document).scrollTop(), window_height = $(window).height();
     var scroll_to = $(el).offset().top - options.margin;
 
-    $('body, html').animate({scrollTop: scroll_to}, options.speed);
+    $('body, html').animate({scrollTop: scroll_to}, options.speed, 'easeInQuad');
     return el;
   },
   capitalize: function(string) {
@@ -44,5 +44,10 @@ _.mixin({
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
+  },
+  isScrollBottom: function(el, inner_el) { 
+    var elementHeight = $(inner_el).height(); 
+    var scrollPosition = $(el).height() + $(el).scrollTop(); 
+    return (elementHeight == scrollPosition); 
   }
 });

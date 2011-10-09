@@ -2,63 +2,81 @@ PAd.Views.Records.Index = Backbone.View.extend({
   //el: '#PAd .modules .module[data-module="MODULE"]',
   opened: false,
   initialize: function() {
-    _.bindAll(this, '__add', 'select', 'save', 'quit');
+    _.bindAll(this, '__add', 'select_text', 'autosave', 'quit', 'load_more');
     this.list = this.$('table tbody');
 
-    this.collection.dummy(Math.floor(Math.random()*1000));
+    this.collection.fetch(
+      {success: function(collection, response) {
+        if (collection.length == 0) collection.dummy(Math.floor(Math.random()*1000));
+      }, error: function(collection, response, error) {
+        console.error("Couldn't load the data", collection, response, error);
+      }
+    });
 
     this.collection.bind('add', this.__add);
+
+    this.$('.content').scroll(this.load_more);
+    $('td.editable.error').twipsy({live: true});
 
     this.bindKeys();
 
     return this;
   },
   render: function() {
+    $(this.el).addClass('active');
+    _.scroll_to($(this.el));
+
     if (!this.opened) {
-      _.each(this.collection.first(30), this.__add);
+      this.collection.next_page(this.__add);
       this.opened = true;
     }
+
 
     this.scope();
     return this;
   },
   __add: function(record) {
     // Render the record 
-    this.list.append(_.jst('record', {record: record}));
+    this.list.append(_.jst('record', {record: record})).fadeIn();
     return this;
   },
   events: {
     'click table tbody th.action.create': 'create',
     'click table tbody td.action.update': 'update',
     'click table tbody td.action.delete': 'del',
-    //'focus table tbody td.editable[contenteditable="true"]': 'before',
-    'blur table tbody td.editable[contenteditable="true"]': 'save'
+    'blur table tbody td.editable[contenteditable="true"]': 'autosave'
   },
   keys: {
-    'shift+tab,tab': 'select',
+    'shift+tab,tab': 'select_text',
     'esc': 'quit'
   },
-  select: function(ev) {
-    _.selectElementContents(ev.target);
+  select_text: function(ev) {
+    _.selectElementContents($(ev.target)[0]);
   },
-  save: function(ev) {
+  autosave: function(ev) {
     var el = $(ev.currentTarget);
-    var property = $(el).closest('table').find('th').eq(el.get(0).cellIndex-1).attr('data-property');
-    var model = this.collection.getByCid(el.parent('tr').attr('data-cid'));
-    var data = {};
-    data[property] = el.text();
-    model.save(data, {
-      success: function(model, response) {
-        el.effect('highlight', {color: 'green'}, 2000);
-      },
-      error: function(model, response, error) {
-        console.error(error);
-        el.effect('highlight', {color: 'red'}, 2000); 
-      }
-    });
+    el.removeClass('error').attr('style', '');
+    // TODO Remove twipsy? It locks itself there!
+    var property = $(el).closest('table').find('th').eq(el[0].cellIndex-1).attr('data-property'),
+      model = this.collection.getByCid(el.parent('tr').attr('data-cid')),
+      new_value = el.text();
+    if (model.get(property) !== new_value) {
+      var data = {};
+      data[property] = new_value;
+      model.save(data, {
+        success: function(model, response) {
+          el.effect('highlight', {color: '#ebef91'}, 2000);
+        },
+        error: function(model, error, response) {
+          el.animate({backgroundColor: '#fbbc9b'}, 2000);
+          el.addClass('error').attr('data-original-title', error[property]);
+        }
+      });
+    }
   },
   quit: function(ev) {
     this.list.find('td.editable').removeAttr('contenteditable');
+    return this;
   },
   create: function(ev) {
     this.collection.add({});
@@ -78,18 +96,22 @@ PAd.Views.Records.Index = Backbone.View.extend({
 
     this.collection.getByCid(row.attr('data-cid')).destroy({
       success: function(model, response) {
-        row.children().effect('highlight', {color: 'green'}, 2000);
+        row.children().effect('highlight', {color: '#ebef91'}, 2000);
         row.fadeOut(1800, function() { $(this).remove(); });
       },
       error: function(model, response, error) {
         console.error(error);
-        row.children().effect('highlight', {color: 'red'}, 2000); 
+        row.children().effect('highlight', {color: '#fbbc9b'}, 2000); 
       }
     });
 
     return this;
+  },
+  load_more: function(ev) {
+    if(_.isScrollBottom(this.$('.content'), this.$('table'))) {
+      this.collection.next_page(this.__add);
+    }
   }
-  // TODO Implement lazy loading 
 });
 
 _.extend(PAd.Views.Records.Index.prototype, Backbone.Locksmith);

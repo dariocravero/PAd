@@ -40,6 +40,17 @@ function sample_modules() {
         return _.map(this.collection.model.properties, $.proxy(function(property) {
           return {name: property.name, value: this.get(property.name), editable: property.editable};
         }, this));
+      },
+      validate: function(attrs) {
+        var errors = {};
+        _.each(attrs, function(k, v) {
+          if (k == '') {
+            errors[v] = v + " can't be blank";
+          }
+        });
+        if (!_.isEmpty(errors)) {
+          return errors;
+        }
       }
     }, {properties: module.properties});
     PAd.Collections[module.name.collection] = Backbone.Collection.extend({
@@ -55,14 +66,30 @@ function sample_modules() {
         });
         this.add(add);
         this.last().save();
-      }
+      },
+      next_page: function(callback) {
+        // TODO Implement lazy loading here.
+        // Do we have enough records?
+        var from_index = this.page*this.records_per_page,
+          to_index = (this.page+1)*this.records_per_page;
+        if (to_index <= this.length) {
+          _.each(this.models.slice(from_index, to_index), callback);
+          this.page++;
+
+          // TODO Perhaps we can get more if we're near the limit?
+        } else {
+          // TODO Fetch & if we get some records increase page count. 
+        }
+      },
+      page: 0,
+      records_per_page: 30
     });
     PAd.Views[module.name.collection] = {Index: PAd.Views.Records.Index.extend({
-      el: '#PAd .modules .module[data-module="' + module.name.collection + '"]'
+      el: '#PAd .modules .module[data-module="' + module.name.collection.toLowerCase() + '"]'
     })};
     // Render the module
     $('#PAd .modules').append(_.jst('module', 
-          { module: module.name.collection,
+          { module: module.name.collection.toLowerCase(),
             properties: _.pluck(module.properties, 'name')}));
 
   });
