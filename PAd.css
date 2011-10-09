@@ -111,6 +111,7 @@ html, body {
 #PAd .module.active table tbody td {
   padding: 10px 0 10px 5px;
   border: none;
+  max-width: 250px;
 }
 #PAd .module.active table tbody td.action {
   text-align: center;

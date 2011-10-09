@@ -36,5 +36,13 @@ _.mixin({
   rand: function(limit) {
     if (typeof limit !== 'number') limit = 1000;
     return Math.ceil(Math.random()*limit);
+  },
+  // http://stackoverflow.com/questions/6139107/programatically-select-text-in-a-contenteditable-html-element/6150060#6150060
+  selectElementContents: function(el) {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 });

@@ -70,11 +70,11 @@
       </table>
     </script>
     <script type="text/template" id="template_record">
-      <tr data-id="<%= id %>">
+      <tr data-cid="<%= record.cid %>">
         <td class="action update">EDIT</td>
         <td class="action delete"><div></div></td>
-        <% _.each(values, function(value) { %>
-          <td><%= value %></td>
+        <% _.each(record.data(), function(property) { %>
+          <td<%= property.editable ? ' class="editable"' : '' %>><%= property.value %></td>
         <% }); %>
       </tr>
     </script>
