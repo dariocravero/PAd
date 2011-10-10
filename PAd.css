@@ -1,0 +1,196 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-width: 100%;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+.vertical-align {
+  display: table-cell;
+  height: inherit;
+  width: inherit;
+  vertical-align: middle;
+}
+#PAd {
+  height: 100%;
+  min-width: 100%;
+}
+#PAd .modules {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+#PAd .module {
+  border: 2px solid transparent;
+  min-width: 1000px;
+}
+#PAd .module.active {
+  background-color: #e1f3fa;
+  height: 100%;
+  /*position: fixed;
+  top: 0;*/
+}
+#PAd .module.selected {
+  border: 2px solid #00adee;
+}
+#PAd .module .sidebar {
+  float: left;
+  width: 250px;
+  font-size: 16px;
+  line-height: 1.5em;
+}
+#PAd .module .sidebar .title {
+  padding: 30px 0 30px 30px;
+  position: relative;
+}
+#PAd .module .sidebar .title .create {
+  position: absolute;
+  right: 8px;
+  cursor: pointer;
+  padding: 4px 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #c4c6c8;
+  border: 1px solid #e5e6e7;
+  background-color: transparent;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#PAd .module .sidebar .title .create:hover {
+  border: 1px solid #808184;
+  color: #808184;
+}
+#PAd .module .sidebar .title .create.active {
+  background-color: #ebef91 !important;
+}
+#PAd .module .sidebar .text {
+  background-color: white;
+  height: 100%;
+  display: none;
+  padding: 20px 30px;
+  color: #929497;
+  font-size: 12px;
+  line-height: 1.2em;
+}
+#PAd .module.active .sidebar {
+  height: 100%;
+}
+#PAd .module.active .sidebar .text {
+  display: block;
+}
+#PAd .module .content {
+  margin-left: 250px;
+  overflow: auto;
+}
+#PAd .module table {
+  color: #58595b;
+  width: auto;
+  margin-bottom: 0;
+}
+#PAd .module table thead th {
+  padding-right: 20px;
+  font-weight: normal;
+  color: #929497;
+  height: 82px;
+  font-size: 14px;
+}
+#PAd .module table thead th span {
+  border-left: 6px solid #929497;
+  padding: 10px 5px;
+}
+#PAd .module table thead th.action {
+  padding: 0;
+}
+#PAd .module table tbody {
+  display: none;
+}
+#PAd .module.active .content {
+  height: 93%; 
+  background-color: white;
+}
+#PAd .module.active table {
+  width: 100%;
+  max-height: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+#PAd .module.active table thead th {
+  color: black;
+  background-color: #e1f3fa;
+}
+#PAd .module.active table tbody {
+  display: table-row-group;
+}
+#PAd .module.active table tbody td {
+  padding: 10px 0 10px 5px;
+  border: none;
+  max-width: 250px;
+  font-size: 13px;
+}
+#PAd .module.active table tbody td.action {
+  text-align: center;
+  cursor: pointer;
+  color: #929497;
+}
+#PAd .module.active table tbody td.action.delete div {
+  background: transparent url('images/delete-icon.png') no-repeat 0 0;
+  margin-top: 3px;
+  height: 15px;
+  width: 15px;
+}
+#PAd .module.active table tbody tr:hover td {
+  background-color: #d5eef8;
+}
+#PAd .module.active table tbody tr:hover td.action.delete div {
+  background-position: 0 -15px;
+}
+#PAd .module.action table tbody tr td.editable:focus {
+  border: 2px solid #00adee;
+}
+#PAd .module.active table tbody tr:hover td.action.update {
+  color: #58595B; 
+}
+#PAd .spacer {
+  height: 60px;
+}
+#PAd .toolbar {
+  background-color: #6d6e71;
+  padding: 15px 30px;
+  font-size: 16px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-family: Georgia, serif;
+  color: white;
+}
+#PAd .toolbar .name {
+  padding-top: 5px;
+  float: left;
+  width: 300px;
+}
+#PAd .toolbar .session {
+  width: 32px;
+  height: 32px;
+  background: transparent url('images/key-icon.png') no-repeat 0 0;
+  margin: 0 auto;
+}
+#PAd .toolbar .shortcuts {
+  width: 300px;
+  float: right;
+}
+
+table.zebra-striped tbody tr:nth-child(even) td {
+  background-color: white;    
+}
+table.zebra-striped tbody tr:nth-child(odd) td {
+  background-color: #f2f8f8;
+}
