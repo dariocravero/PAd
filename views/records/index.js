@@ -23,25 +23,29 @@ PAd.Views.Records.Index = Backbone.View.extend({
     return this;
   },
   render: function() {
-    $(this.el).addClass('active');
     _.scroll_to($(this.el));
+    $(this.el).addClass('active');
 
     if (!this.opened) {
       this.collection.next_page(this.__add);
       this.opened = true;
     }
 
-
     this.scope();
     return this;
   },
   __add: function(record) {
     // Render the record 
-    this.list.append(_.jst('record', {record: record})).fadeIn();
+    var template = _.jst('record', {record: record});
+    if (record.isNew()) {
+      this.list.prepend(template).fadeIn();
+    } else {
+      this.list.append(template).fadeIn();
+    }
     return this;
   },
   events: {
-    'click table tbody th.action.create': 'create',
+    'click .title .action.create': 'create',
     'click table tbody td.action.update': 'update',
     'click table tbody td.action.delete': 'del',
     'blur table tbody td.editable[contenteditable="true"]': 'autosave'
@@ -80,6 +84,38 @@ PAd.Views.Records.Index = Backbone.View.extend({
   },
   create: function(ev) {
     this.collection.add({});
+    /**
+     * New record:
+     * 1. Create a model instance and attach it to the collection.
+     * 2. Render a blank line at the top of the table. All of this should get
+     * the classes .editable.new (to distinguish them from existing records).
+     * 3. Wait until the user finishes entering all of the properties
+     * and saves the record.
+     * 3.1. Success: highlight all the fields with a green bg, change it to be
+     * and 'editable' field only (DONE changes to EDIT now) and fill it in
+     * with whatever came back from the backend.
+     * 3.2. Error: highlight all the fields indicating what happened
+     * as we do in update mode. The field remains in new mode.
+     * 4. If the user tabbed at the very end, add a new one and repeat.
+     * 5. If the user hit ESC they should now be in edit mode.
+     * 5.1. If there're any errors ask if the user wants to continue anyway, if
+     * they do delete the record.
+     * 6. If the user hits ESC again they should exit edit mode and the row
+     * they were editing becomes selected only.
+     * 6.1. If there're any errors ask if the user wants to continue anyway, if
+     * they do revert the record to a valid state.
+     *
+     *
+     * > Keyboard shortcuts:
+     * I think that the easiest way to handle this is through scopes since the same
+     * key can be binded to different scopes (like create, update, etc.). That
+     * will be really easy to implement.
+     *
+     * > Mouse:
+     * This will be a bit trickier since the user can go anywhere and screw the whole
+     * thing up. I reckon that a good way to do it is to show DONE instead of EDIT on
+     * the row to tell we're done adding.
+     */
     return this;
   },
   update: function(ev) {

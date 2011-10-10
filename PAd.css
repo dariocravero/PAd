@@ -31,8 +31,8 @@ html, body {
 #PAd .module.active {
   background-color: #e1f3fa;
   height: 100%;
-  position: fixed;
-  top: 0;
+  /*position: fixed;
+  top: 0;*/
 }
 #PAd .module.selected {
   border: 2px solid #00adee;
@@ -43,8 +43,34 @@ html, body {
   font-size: 16px;
   line-height: 1.5em;
 }
-#PAd .module .sidebar .name {
+#PAd .module .sidebar .title {
   padding: 30px 0 30px 30px;
+  position: relative;
+}
+#PAd .module .sidebar .title .create {
+  position: absolute;
+  right: 8px;
+  cursor: pointer;
+  padding: 4px 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #c4c6c8;
+  border: 1px solid #e5e6e7;
+  background-color: transparent;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#PAd .module .sidebar .title .create:hover {
+  border: 1px solid #808184;
+  color: #808184;
+}
+#PAd .module .sidebar .title .create.active {
+  background-color: #ebef91 !important;
 }
 #PAd .module .sidebar .text {
   background-color: white;

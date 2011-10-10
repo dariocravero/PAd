@@ -51,7 +51,10 @@
     <script type="text/template" id="template_module">
       <li data-module="<%= module %>" class="module clearfix <%= module %>">
         <div class="sidebar vertical-align">
-          <div class="name"><%= _.capitalize(module) %></div>
+          <div class="title">
+            <span><%= _.capitalize(module) %></span>
+            <button class="action create">New</button>
+          </div>
           <div class="text">Champollion deciphered the wrinkled granite hieroglyphics. But there is no Champollion to decipher the Egypt of every man's and every being's face. Physiognomy, like every other human science, is but a passing fable. If then, Sir William Jones, who read in thirty languages, could not read the simplest peasant's face in its profounder and more subtle meanings, how may unlettered Ishmael hope to read the awful Chaldee of the Sperm Whale's brow? I but put that brow before you. Read it if you can.</div>
         </div>
         <div class="content"><%= _.jst('list', {properties: properties}) %></div>
@@ -72,10 +75,14 @@
     </script>
     <script type="text/template" id="template_record">
       <tr data-cid="<%= record.cid %>">
-        <td class="action update">EDIT</td>
+        <% if (record.isNew()) { %>
+          <td class="action done">DONE</td>
+        <% } else { %>
+          <td class="action update">EDIT</td>
+        <% } %>
         <td class="action delete"><div></div></td>
         <% _.each(record.data(), function(property) { %>
-          <td<%= property.editable ? ' class="editable"' : '' %>><%= property.value %></td>
+          <td<%= property.editable ? ' class="editable new"' : '' %>><%= property.value %></td>
         <% }); %>
       </tr>
     </script>
