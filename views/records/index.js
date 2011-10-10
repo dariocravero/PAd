@@ -7,7 +7,7 @@ PAd.Views.Records.Index = Backbone.View.extend({
 
     this.collection.fetch(
       {success: function(collection, response) {
-        if (collection.length == 0) collection.dummy(Math.floor(Math.random()*1000));
+        if (collection.length < 10) collection.dummy(Math.floor(Math.random()*1000));
       }, error: function(collection, response, error) {
         console.error("Couldn't load the data", collection, response, error);
       }
