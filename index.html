@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PAd</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="https://raw.github.com/dariocravero/PAd/master/vendor/bootstrap-twipsy.css" type="text/css" rel="stylesheet">
+    <link href="https://raw.github.com/dariocravero/PAd/master/PAd.css" type="text/css" rel="stylesheet">
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="PAd">
+      <ul class="modules"></ul>
+      <div class="spacer"></div>
+      <div class="toolbar">
+        <div class="name">Your App @ PAd</div>
+        <div class="shortcuts"></div>
+        <div class="session"></div>
+      </div>
+    </div>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/jquery-ui.min.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/underscore-min.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/backbone-min.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/backbone.localStorage-min.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/keymaster.min.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/backbone.locksmith.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/mixins.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/vendor/bootstrap-twipsy.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/modules.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/PAd.js"></script>
+
+    <!-- Models >> -->
+    <!-- TODO Put the app's models -->
+    <!-- << Models -->
+
+    <!-- Collections >> -->
+    <!-- TODO Put the app's collections -->
+    <!-- << Collections -->
+
+    <!-- Routers >> -->
+    <script src="https://raw.github.com/dariocravero/PAd/master/routers/modules.js"></script>
+    <!-- << Routers -->
+
+    <!-- Views >> -->
+    <script src="https://raw.github.com/dariocravero/PAd/master/views/modules/index.js"></script>
+    <script src="https://raw.github.com/dariocravero/PAd/master/views/records/index.js"></script>
+    <!-- << Views -->
+
+    <script>$(function() { PAd.init({modules: sample_modules()}); });</script>
+
+    <script type="text/template" id="template_module">
+      <li data-module="<%= module %>" class="module clearfix <%= module %>">
+        <div class="sidebar vertical-align">
+          <div class="title">
+            <span><%= _.capitalize(module) %></span>
+            <button class="action create">New</button>
+          </div>
+          <div class="text">Champollion deciphered the wrinkled granite hieroglyphics. But there is no Champollion to decipher the Egypt of every man's and every being's face. Physiognomy, like every other human science, is but a passing fable. If then, Sir William Jones, who read in thirty languages, could not read the simplest peasant's face in its profounder and more subtle meanings, how may unlettered Ishmael hope to read the awful Chaldee of the Sperm Whale's brow? I but put that brow before you. Read it if you can.</div>
+        </div>
+        <div class="content"><%= _.jst('list', {properties: properties}) %></div>
+      </li>
+    </script>
+    <script type="text/template" id="template_list">
+      <table class="zebra-striped">
+        <thead>
+          <tr>
+            <th class="action" colspan="2"></th>
+            <% _.each(properties, function(property) { %>
+              <th class="property" data-property="<%= property %>"><span><%= _.replace_and_capitalize(property, '_', true) %></span></th>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </script>
+    <script type="text/template" id="template_record">
+      <tr data-cid="<%= record.cid %>">
+        <% if (record.isNew()) { %>
+          <td class="action done">DONE</td>
+        <% } else { %>
+          <td class="action update">EDIT</td>
+        <% } %>
+        <td class="action delete"><div></div></td>
+        <% _.each(record.data(), function(property) { %>
+          <td<%= property.editable ? ' class="editable new"' : '' %>><%= property.value %></td>
+        <% }); %>
+      </tr>
+    </script>
+  </body>
+</html>
