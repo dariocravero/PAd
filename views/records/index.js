@@ -2,7 +2,9 @@ PAd.Views.Records.Index = Backbone.View.extend({
   //el: '#PAd .modules .module[data-module="MODULE"]',
   opened: false,
   initialize: function() {
-    _.bindAll(this, '__add', 'select_text', 'autosave', 'quit', 'load_more');
+    _.bindAll(this, '__add', 'select_text', 'autosave', 'quit', 'load_more',
+      'select_prev_record', 'select_next_record', 'update_current_record',
+      'create');
     this.list = this.$('table tbody');
 
     this.collection.fetch(
@@ -52,7 +54,11 @@ PAd.Views.Records.Index = Backbone.View.extend({
   },
   keys: {
     'shift+tab,tab': 'select_text',
-    'esc': 'quit'
+    'esc': 'quit',
+    'up': 'select_prev_record',
+    'down': 'select_next_record',
+    '⌘+e,ctrl+e': 'update_current_record',
+    '⌘+n,ctrl+n': 'create'
   },
   select_text: function(ev) {
     _.selectElementContents($(ev.target)[0]);
@@ -127,6 +133,8 @@ PAd.Views.Records.Index = Backbone.View.extend({
     //this.collection.getByCid(row.attr('data-cid'));
     return this;
   },
+  update_current_record: function() {
+  },
   del: function(ev) {
     var row = $(ev.currentTarget).parent('tr');
 
@@ -146,6 +154,28 @@ PAd.Views.Records.Index = Backbone.View.extend({
   load_more: function(ev) {
     if(_.isScrollBottom(this.$('.content'), this.$('table'))) {
       this.collection.next_page(this.__add);
+    }
+  },
+  select_prev_record: function() {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    var selected = this.$('.selected');
+    if (selected.length == 0) {
+      this.modules.last().addClass('selected');
+    } else {
+      selected.removeClass('selected').prev().addClass('selected');
+    }
+  },
+  select_next_record: function() {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    var selected = this.$('.selected');
+    if (selected.length == 0) {
+      this.modules.first().addClass('selected');
+    } else {
+      selected.removeClass('selected').next().addClass('selected');
     }
   }
 });

@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <title>PAd</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link href="vendor/bootstrap-twipsy.css" type="text/css" rel="stylesheet">
+    <link href="vendor/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="PAd.css" type="text/css" rel="stylesheet">
     <script src="vendor/jquery.min.js"></script>
   </head>
   <body>
     <div id="PAd">
-      <ul class="modules"></ul>
-      <div class="spacer"></div>
+      <div class="container"></div>
       <div class="toolbar">
         <div class="name">Your App @ PAd</div>
         <div class="shortcuts"></div>
@@ -26,6 +25,7 @@
     <script src="vendor/backbone.locksmith.js"></script>
     <script src="vendor/mixins.js"></script>
     <script src="vendor/bootstrap-twipsy.js"></script>
+    <script src="vendor/bootstrap-popover.js"></script>
     <script src="modules.js"></script>
     <script src="PAd.js"></script>
 
@@ -38,15 +38,33 @@
     <!-- << Collections -->
 
     <!-- Routers >> -->
+    <script src="routers/index.js"></script>
     <script src="routers/modules.js"></script>
     <!-- << Routers -->
 
     <!-- Views >> -->
+    <script src="views/index.js"></script>
+    <script src="views/app.js"></script>
     <script src="views/modules/index.js"></script>
     <script src="views/records/index.js"></script>
     <!-- << Views -->
 
     <script>$(function() { PAd.init({modules: sample_modules()}); });</script>
+
+    <script type="text/template" id="template_index">
+      <div class="index">
+        <h1>PAd</h1>
+        <h2>Padrino Admin</h2>
+        <p><strong>noun</strong> <em>/pad/</em>. A flat-topped structure or area used for helicopter takeoff and landing or for rocket launching.</p>
+        <p>Really? Nah.</p>
+        <p>PAd is an easy to use an intuitive admin interface for your Padrino's projects built on Backbone to provide a natural and fast user experience.</p>
+      </div>
+    </script>
+
+    <script type="text/template" id="template_app">
+      <ul class="modules"></ul>
+      <div class="spacer"></div>
+    </script>
 
     <script type="text/template" id="template_module">
       <li data-module="<%= module %>" class="module clearfix <%= module %>">

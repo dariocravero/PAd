@@ -6,9 +6,10 @@ var PAd = {
     Records: {}
   },
   Routers: {},
+  routers: {},
   init: function(data) {
     this.modules = data.modules;
-    this.router = new PAd.Routers.Modules();
+    this.routers.index = new PAd.Routers.Index();
     Backbone.history.start();
   }
 };

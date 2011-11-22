@@ -194,3 +194,28 @@ table.zebra-striped tbody tr:nth-child(even) td {
 table.zebra-striped tbody tr:nth-child(odd) td {
   background-color: #f2f8f8;
 }
+
+/* Index */
+#PAd .index {
+  width: 200px;
+  margin: 50px 25px;
+}
+#PAd .index h1 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  font-size: 1.5em;
+  border-left: 6px solid #ace0ee;
+  padding-left: 10px;
+  margin: 0;
+}
+#PAd .index h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+#PAd .index p {
+  font-size: 0.7em;
+  line-height: 1.4em;
+  color: #929497;
+}
