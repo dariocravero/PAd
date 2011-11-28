@@ -13,7 +13,7 @@
       <div class="container"></div>
       <div class="toolbar">
         <div class="name">Your App @ PAd</div>
-        <div class="shortcuts"></div>
+        <div class="shortcuts clearfix"></div>
         <div class="session"></div>
       </div>
     </div>
@@ -29,35 +29,13 @@
     <script src="modules.js"></script>
     <script src="PAd.js"></script>
 
-    <!-- Models >> -->
-    <!-- TODO Put the app's models -->
-    <!-- << Models -->
-
-    <!-- Collections >> -->
-    <!-- TODO Put the app's collections -->
-    <!-- << Collections -->
-
-    <!-- Routers >> -->
-    <script src="routers/index.js"></script>
-    <script src="routers/modules.js"></script>
-    <!-- << Routers -->
-
-    <!-- Views >> -->
-    <script src="views/index.js"></script>
-    <script src="views/app.js"></script>
-    <script src="views/modules/index.js"></script>
-    <script src="views/records/index.js"></script>
-    <!-- << Views -->
-
-    <script>$(function() { PAd.init({modules: sample_modules()}); });</script>
-
     <script type="text/template" id="template_index">
       <div class="index">
         <h1>PAd</h1>
         <h2>Padrino Admin</h2>
         <p><strong>noun</strong> <em>/pad/</em>. A flat-topped structure or area used for helicopter takeoff and landing or for rocket launching.</p>
         <p>Really? Nah.</p>
-        <p>PAd is an easy to use an intuitive admin interface for your Padrino's projects built on Backbone to provide a natural and fast user experience.</p>
+        <p>PAd is an easy to use and intuitive admin interface for your Padrino's projects built on Backbone to provide a natural and fast user experience.</p>
       </div>
     </script>
 
@@ -117,5 +95,41 @@
         <% }); %>
       </tr>
     </script>
+
+    <script type="text/template" id="template_shortcut">
+      <div class="shortcut">
+        <span class="description"><%=description%></span>
+        <span><%=shortcut%></span>
+      </div>
+    </script>
+
+
+    <!-- Models >> -->
+    <!-- TODO Put the app's models -->
+    <script src="models/current_user.js"></script>
+    <!-- << Models -->
+
+    <!-- Collections >> -->
+    <!-- TODO Put the app's collections -->
+    <!-- << Collections -->
+
+    <!-- Routers >> -->
+    <script src="routers/index.js"></script>
+    <script src="routers/modules.js"></script>
+    <!-- << Routers -->
+
+    <!-- Views >> -->
+    <script src="views/index.js"></script>
+    <script src="views/app.js"></script>
+    <script src="views/modules.js"></script>
+    <script src="views/toolbar.js"></script>
+    <script src="views/session.js"></script>
+    <script src="views/shortcuts.js"></script>
+    <script src="views/records/index.js"></script>
+    <!-- << Views -->
+
+    <script>$(function() { PAd.init({modules: sample_modules()}); });</script>
+
+
   </body>
 </html>

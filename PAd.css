@@ -163,6 +163,13 @@ html, body {
   height: 60px;
 }
 
+table.zebra-striped tbody tr:nth-child(even) td {
+  background-color: white;    
+}
+table.zebra-striped tbody tr:nth-child(odd) td {
+  background-color: #f2f8f8;
+}
+
 /* Toolbar */
 #PAd .toolbar {
   background-color: #6d6e71;
@@ -185,15 +192,20 @@ html, body {
   margin: 0 auto;
 }
 #PAd .toolbar .shortcuts {
-  width: 300px;
+  margin-top: 8px;
   float: right;
+  width: 300px;
 }
-
-table.zebra-striped tbody tr:nth-child(even) td {
-  background-color: white;    
+#PAd .toolbar .shortcuts .shortcut {
+  margin-right: 20px;
+  float: left;
 }
-table.zebra-striped tbody tr:nth-child(odd) td {
-  background-color: #f2f8f8;
+#PAd .toolbar .shortcuts .shortcut .description {
+  color: #acdff2; /* light-blue */
+  font-family: Georgia, serif;
+  font-size: 0.7em;
+  font-style: italic;
+  margin-right: 5px;
 }
 
 /* Index */

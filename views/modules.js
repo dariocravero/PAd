@@ -1,8 +1,8 @@
 /**
  * Handles the interaction between modules
  */
-PAd.Views.Modules.Index = Backbone.View.extend({
-  el: 'ul.modules',
+PAd.Views.Modules = Backbone.View.extend({
+  el: '#PAd .container ul.modules',
   views: {},
   modules: null,
   initialize: function() {
@@ -95,4 +95,4 @@ PAd.Views.Modules.Index = Backbone.View.extend({
   }
 });
 
-_.extend(PAd.Views.Modules.Index.prototype, Backbone.Locksmith);
+_.extend(PAd.Views.Modules.prototype, Backbone.Locksmith);

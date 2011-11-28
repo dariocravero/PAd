@@ -1,14 +1,22 @@
 PAd.Routers.Index = Backbone.Router.extend({
-  view: null,
   routes: {
-    '': 'index'
+    '': 'index',
+    'login': 'login',
+    'logout': 'logout'
   },
-  initialize: function() {
-    this.view = new PAd.Views.Index();
+  initialize: function(options) {
+    this.view = options.view;
     return this;
   },
   index: function() {
-    this.view.render();
+    //this.view.render();
     return this;
+  },
+  login: function() {
+    this.view.login();
+    console.log('login');
+  },
+  logout: function() {
+    console.log('logout');
   }
 });
